@@ -347,7 +347,8 @@ class StockTradingEnv(gym.Env):
             )
             self.asset_memory.append(end_total_asset)
             self.date_memory.append(self._get_date())
-            self.reward = end_total_asset - begin_total_asset
+            #self.reward = end_total_asset - begin_total_asset
+            self.reward = (end_total_asset - begin_total_asset)/self.trades
             self.rewards_memory.append(self.reward)
             self.reward = self.reward * self.reward_scaling
             self.state_memory.append(
