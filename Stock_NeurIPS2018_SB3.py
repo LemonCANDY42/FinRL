@@ -242,6 +242,8 @@ print(f"config.INDICATORS: {config.INDICATORS}")
 #%%
 
 stock_dimension = len(train.tic.unique())
+print(stock_dimension)
+print(train.tic.unique())
 state_space = 1 + 2 * stock_dimension + len(config.INDICATORS) * stock_dimension
 print(f"Stock Dimension: {stock_dimension}, State Space: {state_space}")
 
@@ -359,7 +361,6 @@ agent = DRLAgent(env=env_train)
 
 ### Model 5: SAC
 
-
 agent = DRLAgent(env=env_train)
 SAC_PARAMS = {
     "batch_size": 128,
@@ -367,7 +368,7 @@ SAC_PARAMS = {
     "learning_rate": 0.0001,
     "learning_starts": 100,
     "ent_coef": "auto_0.1",
-    "device": "mps",  # "device":'cuda'
+    #"device": "mps",  # "device":'cuda'
 }
 
 model_sac = agent.get_model("sac", model_kwargs=SAC_PARAMS)

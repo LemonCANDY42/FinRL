@@ -143,18 +143,23 @@ class DRLAgent:
         # test on the testing env
         state = environment.reset()
         episode_returns = []  # the cumulative_return / initial_account
-        episode_total_assets = [environment.initial_total_asset]
+        initial_total_asset = environment.initial_total_asset if hasattr(environment, 'initial_total_asset') else environment.initial_amount
+        episode_total_assets = [initial_total_asset]
         done = False
         while not done:
             action = model.predict(state, deterministic=deterministic)[0]
             state, reward, done, _ = environment.step(action)
 
-            total_asset = (
-                environment.amount
-                + (environment.price_ary[environment.day] * environment.stocks).sum()
+            # total_asset = (
+            #     environment.amount
+            #     + (environment.price_ary[environment.day] * environment.stocks).sum()
+            # )
+            total_asset = state[0] + sum(
+                np.array(state[1 : (environment.stock_dim + 1)])
+                * np.array(state[(environment.stock_dim + 1) : (environment.stock_dim * 2 + 1)])
             )
             episode_total_assets.append(total_asset)
-            episode_return = total_asset / environment.initial_total_asset
+            episode_return = total_asset / initial_total_asset
             episode_returns.append(episode_return)
 
         print("episode_return", episode_return)
