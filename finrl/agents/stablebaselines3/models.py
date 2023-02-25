@@ -164,7 +164,7 @@ class DRLAgent:
 
         print("episode_return", episode_return)
         print("Test Finished!")
-        return episode_total_assets
+        return model
 
 
 class DRLEnsembleAgent:
