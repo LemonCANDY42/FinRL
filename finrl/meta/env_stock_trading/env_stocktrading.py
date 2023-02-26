@@ -315,7 +315,7 @@ class StockTradingEnv(gym.Env):
             # print("begin_total_asset:{}".format(begin_total_asset))
 
             argsort_actions = np.argsort(actions)
-            motionless_reward  = np.sum(np.absolute(actions) == 0)
+            # motionless_reward  = np.sum(np.absolute(actions) == 0)
             sell_index = argsort_actions[: np.where(actions < 0)[0].shape[0]]
             buy_index = argsort_actions[::-1][: np.where(actions > 0)[0].shape[0]]
 
@@ -348,8 +348,7 @@ class StockTradingEnv(gym.Env):
             )
             self.asset_memory.append(end_total_asset)
             self.date_memory.append(self._get_date())
-            #self.reward = end_total_asset - begin_total_asset
-            self.reward = (end_total_asset - begin_total_asset)*(motionless_reward+1)
+            self.reward = end_total_asset - begin_total_asset
             self.rewards_memory.append(self.reward)
             self.reward = self.reward * self.reward_scaling
             self.state_memory.append(
