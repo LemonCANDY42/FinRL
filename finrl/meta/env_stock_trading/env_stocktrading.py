@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from typing import List
-
 import gym
 import matplotlib
 import matplotlib.pyplot as plt
@@ -44,6 +43,8 @@ class StockTradingEnv(gym.Env):
         model_name="",
         mode="",
         iteration="",
+        # profit_loss_weight must be >1
+        profit_loss_weight  = None
     ):
         self.day = day
         self.df = df
@@ -81,6 +82,7 @@ class StockTradingEnv(gym.Env):
         self.cost = 0
         self.trades = 0
         self.episode = 0
+        self.profit_loss_weight = profit_loss_weight
         # memorize all the total balance change
         self.asset_memory = [
             self.initial_amount
@@ -348,7 +350,14 @@ class StockTradingEnv(gym.Env):
             )
             self.asset_memory.append(end_total_asset)
             self.date_memory.append(self._get_date())
-            self.reward = end_total_asset - begin_total_asset
+            # self.reward = end_total_asset - begin_total_asset
+
+            pre_reward = (end_total_asset / begin_total_asset) - 1
+            if self.profit_loss_weight is None:
+                self.reward = pre_reward
+            else:
+                self.reward = pre_reward if pre_reward >= 0 else pre_reward*self.profit_loss_weight
+
             self.rewards_memory.append(self.reward)
             self.reward = self.reward * self.reward_scaling
             self.state_memory.append(
