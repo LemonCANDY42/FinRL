@@ -130,12 +130,12 @@ class DRLAgent:
         return account_memory[0], actions_memory[0]
 
     @staticmethod
-    def DRL_prediction_load_from_file(model_name, environment, cwd, deterministic=True):
-        if model_name not in MODELS:
-            raise NotImplementedError("NotImplementedError")
+    def DRL_prediction_load_from_file(origin_model, environment, cwd, deterministic=True):
+        # if model_name not in MODELS:
+        #     raise NotImplementedError("NotImplementedError")
         try:
             # load agent
-            model = MODELS[model_name].load(cwd)
+            model = origin_model.load(cwd,env=origin_model.env,device=origin_model.device)
             print("Successfully load model", cwd)
         except BaseException:
             raise ValueError("Fail to load agent!")
