@@ -230,16 +230,17 @@ class StockTradingEnv(gym.Env):
                 * np.array(self.state[(self.stock_dim + 1) : (self.stock_dim * 2 + 1)])
             )
             df_total_value = pd.DataFrame(self.asset_memory)
-            tot_reward = (
-                self.state[0]
-                + sum(
-                    np.array(self.state[1 : (self.stock_dim + 1)])
-                    * np.array(
-                        self.state[(self.stock_dim + 1) : (self.stock_dim * 2 + 1)]
-                    )
-                )
-                - self.asset_memory[0]
-            )  # initial_amount is only cash part of our initial asset
+            # tot_reward = (
+            #     self.state[0]
+            #     + sum(
+            #         np.array(self.state[1 : (self.stock_dim + 1)])
+            #         * np.array(
+            #             self.state[(self.stock_dim + 1) : (self.stock_dim * 2 + 1)]
+            #         )
+            #     )
+            #     - self.asset_memory[0]
+            # )  # initial_amount is only cash part of our initial asset
+            tot_reward = sum(self.rewards_memory)
             df_total_value.columns = ["account_value"]
             df_total_value["date"] = self.date_memory
             df_total_value["daily_return"] = df_total_value["account_value"].pct_change(
