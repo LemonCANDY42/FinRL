@@ -61,6 +61,18 @@ ERL_PARAMS = {
 }
 RLlib_PARAMS = {"lr": 5e-5, "train_batch_size": 500, "gamma": 0.99}
 
+CUSTOMSAC_PARAMS = {
+    "batch_size": 256,  # 128
+    "buffer_size": 2000000,  # 100000
+    "learning_rate": 0.0001, #0.0001
+    "learning_starts": 100,
+    "ent_coef": "auto_0.1",
+    #越小对未来的奖励探索越近
+#     "gamma":0.9,
+    "gamma_range":[0.5,0.8,0.99],
+}
+
+
 
 # Possible time zones
 TIME_ZONE_SHANGHAI = "Asia/Shanghai"  # Hang Seng HSI, SSE, CSI
