@@ -143,7 +143,7 @@ class CustomSAC(SAC):
           low  = self.gamma_range[0+i]
           high = self.gamma_range[1+i]
 
-          if self.__gamma>=low and self.__gamma<high:
+          if self.__gamma>=low and self.__gamma<=high:
             if self.num_timesteps <= self.total_timesteps:
               x = self.num_timesteps / self.total_timesteps
 
