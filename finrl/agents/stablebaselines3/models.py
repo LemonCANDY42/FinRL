@@ -137,7 +137,10 @@ class DRLAgent:
         #     raise NotImplementedError("NotImplementedError")
         try:
             # load agent
-            model = origin_model.load(cwd,env=origin_model.env,device=origin_model.device)
+            if type(origin_model) is str:
+                model = MODELS[origin_model].load(cwd)
+            else:
+                model = origin_model.load(cwd,env=origin_model.env,device=origin_model.device)
             print("Successfully load model", cwd)
         except BaseException:
             raise ValueError("Fail to load agent!")

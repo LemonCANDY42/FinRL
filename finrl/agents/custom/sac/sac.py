@@ -99,8 +99,8 @@ class CustomSAC(SAC):
     if self.gamma_range:
       if self.gamma_range[0]>=self.gamma_range[-1]:
         raise "gamma_range low must be lower than gamma_range high."
-      if self.__gamma<self.gamma_range[0] or self.__gamma>self.gamma_range[-1]:
-        raise
+      # if self.__gamma<self.gamma_range[0] or self.__gamma>self.gamma_range[-1]:
+      #   raise
       print("Warning:The gamma_range parameter is now enabled, which means the initial gamma value will be replaced by the lower bits of gamma_range.")
 
       #多段函数
