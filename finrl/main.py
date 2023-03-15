@@ -35,7 +35,7 @@ def build_parser():
     parser.add_argument(
         "--mode",
         dest="mode",
-        help="start mode, train, download_data" " backtest",
+        help="start mode, train, download_data" " RL_backtrader",
         metavar="MODE",
         default="train",
     )
